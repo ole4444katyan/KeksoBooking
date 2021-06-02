@@ -1,8 +1,8 @@
 function getRandomFromRange (min, max) {
   if ( min > 0 && min < max) {
-  min = Math.round(min);
-  max = Math.round(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+    min = Math.round(min);
+    max = Math.round(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
   throw new Error;
 }
