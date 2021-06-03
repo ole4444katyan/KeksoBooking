@@ -2,8 +2,8 @@ function getRandomFromRange (min, max) {
   if ( min < 0 || min > max) {
     throw new Error;
   }
-  min = Math.round(min);
-  max = Math.round(max);
+  min = Math.floor(min);
+  max = Math.ceil(max);
   return Math.round(Math.random() * (max - min + 1)) + min;
 }
 
@@ -18,7 +18,7 @@ function getRandomFloatFromRange (min, max, point) {
   return Math.round((Math.random() * (max - min + 1)) + min)/point;
 }
 
-getRandomFromRange(3, 5);
+console.log(getRandomFromRange(3.2, 4));
 getRandomFloatFromRange(3.7, 4, 1);
 
 //первое решение взято отсюда https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random
