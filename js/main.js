@@ -92,8 +92,8 @@ const createFeatures = () => {
 };
 
 const createPhotos = () => {
-  let minIndex = getRandomFromRange(0, 4);
-  let maxIndex = getRandomFromRange(1, 4);
+  let minIndex = getRandomFromRange(0, 2);
+  let maxIndex = getRandomFromRange(1, 2);
   if (minIndex === maxIndex) {
     maxIndex++;
   }
@@ -109,7 +109,7 @@ const createLat = () => getRandomFloatFromRange(35.65000, 35.70000, 5);
 const createLng = () => getRandomFloatFromRange(139.70000, 139.80000, 5);
 
 
-const advertisement = () => {
+const createAdvertisement = () => {
 
   const lat = createLat();
   const lng = createLng();
@@ -136,8 +136,10 @@ const advertisement = () => {
     },
   };
 };
-advertisement;
+createAdvertisement;
 
+const createSimilarAdvertisements = new Array(10).fill(null).map(() => createAdvertisement());
+createSimilarAdvertisements;
 
 /*
 const array = {
