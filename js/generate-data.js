@@ -1,8 +1,16 @@
 /* eslint-disable no-undef */
+import {
+  getRandomFromRange,
+  getRandomFloatFromRange,
+  createRandomElement,
+  createRandomArray
+} from './utils/utils';
+
 
 const NUMBER_REQUIRED_ELEMENS = 10;
 
-const PHOTOS = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
+const PHOTOS = [
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];

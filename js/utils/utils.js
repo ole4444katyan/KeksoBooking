@@ -9,6 +9,7 @@ const getRandomFromRange = (min, max) => {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
+
 const getRandomFloatFromRange = (min, max, point) => {
   if (min < 0 || min > max) {
     throw new Error('Минимальное значение отрицательное или больше максимального');
@@ -20,7 +21,9 @@ const getRandomFloatFromRange = (min, max, point) => {
   max *= point;
   return Math.round((Math.random() * (max - min + 1)) + min) / point;
 };
+
 const createRandomElement = (arr) => arr[getRandomFromRange(0, (arr.length - 1))];
+
 const createRandomArray = (arr) => {
   let minIndex = getRandomFromRange(0, (arr.length - 1));
   let maxIndex = getRandomFromRange(1, (arr.length - 1));
@@ -34,4 +37,9 @@ const createRandomArray = (arr) => {
   return arr.slice(minIndex, maxIndex);
 };
 
-export {getRandomFromRange, getRandomFloatFromRange, createRandomElement, createRandomArray};
+export {
+  getRandomFromRange,
+  getRandomFloatFromRange,
+  createRandomElement,
+  createRandomArray
+};
