@@ -1,7 +1,5 @@
 //Утилитарные функции
 
-/* eslint-disable no-unused-vars */
-
 const getRandomFromRange = (min, max) => {
   if (min < 0 || min > max) {
     throw new Error('Минимальное значение отрицательное или больше максимального');

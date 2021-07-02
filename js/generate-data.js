@@ -1,6 +1,5 @@
 //Генерация временных данных объявлений
 
-/* eslint-disable no-undef */
 import {
   getRandomFromRange,
   getRandomFloatFromRange,

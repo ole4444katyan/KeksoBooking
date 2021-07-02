@@ -1,6 +1,5 @@
 //Точка входа
 
-/* eslint-disable no-unused-vars */
 import {
   data
 } from './generate-data.js';

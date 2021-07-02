@@ -1,7 +1,5 @@
-/* eslint-disable id-length */
-/* eslint-disable no-unused-vars */
 //Генерация разметки объявлений
-/* eslint-disable no-console */
+
 
 import {
   data
@@ -53,10 +51,10 @@ arrayAdvertsData.forEach(({
 
   const photosList = cardElement.querySelector('.popup__photos');
   photosList.innerHTML = '';
-  console.log(offer.photos.length);
 
   if (offer.photos.length > 0) {
 
+    // eslint-disable-next-line id-length
     for (let i = 0; i < offer.photos.length; i++) {
       const img = document.createElement('img');
       img.classList.add('popup__photo');
@@ -73,5 +71,3 @@ arrayAdvertsData.forEach(({
   advertsList.appendChild(cardElement);
 });
 
-
-console.log(advertsList);
