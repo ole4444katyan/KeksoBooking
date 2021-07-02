@@ -1,10 +1,12 @@
+//Генерация временных данных объявлений
+
 /* eslint-disable no-undef */
 import {
   getRandomFromRange,
   getRandomFloatFromRange,
   createRandomElement,
   createRandomArray
-} from './utils/utils';
+} from './utils/utils.js';
 
 
 const NUMBER_REQUIRED_ELEMENS = 10;
@@ -52,7 +54,7 @@ const createAdvert = (index) => {
       checkin: createRandomElement(CHECKINS),
       checkout: createRandomElement(CHECKOUTS),
       features: createRandomArray(FEATURES),
-      description: 'Очень крутое помещение',
+      description: `Очень крутое помещение ${index}`,
       photos: createRandomArray(PHOTOS),
     },
     location: {

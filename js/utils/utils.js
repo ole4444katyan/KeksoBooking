@@ -1,3 +1,5 @@
+//Утилитарные функции
+
 /* eslint-disable no-unused-vars */
 
 const getRandomFromRange = (min, max) => {
@@ -26,7 +28,7 @@ const createRandomElement = (arr) => arr[getRandomFromRange(0, (arr.length - 1))
 
 const createRandomArray = (arr) => {
   let minIndex = getRandomFromRange(0, (arr.length - 1));
-  let maxIndex = getRandomFromRange(1, (arr.length - 1));
+  let maxIndex = getRandomFromRange(1, (arr.length));
 
   if (minIndex === maxIndex) {
     maxIndex--;
@@ -37,9 +39,29 @@ const createRandomArray = (arr) => {
   return arr.slice(minIndex, maxIndex);
 };
 
+const createCapacity = (rooms, guests) => {
+  let signaRooms = ' комнат для ';
+  let signaGuests = ' гостей';
+  if (rooms === 1) {
+    signaRooms = ' комната для ';
+  } if (rooms < 5) {
+    signaRooms = ' комнаты для ';
+  }
+
+  if (guests === 1) {
+    signaGuests = ' гостя';
+  }
+
+  rooms + signaRooms + guests + signaGuests;
+
+  return rooms + signaRooms + guests + signaGuests;
+};
+
+
 export {
   getRandomFromRange,
   getRandomFloatFromRange,
   createRandomElement,
-  createRandomArray
+  createRandomArray,
+  createCapacity
 };
