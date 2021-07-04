@@ -1,7 +1,7 @@
 //Генерация разметки объявлений
 
 import { data } from './generate-data.js';
-import { sklonenie } from './utils/utils.js';
+import { getEndings } from './utils/utils.js';
 
 const map = document.querySelector('#map-canvas');
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
@@ -38,10 +38,6 @@ const fillPhotos = (photos, block) => {
       img.src = photo;
       block.appendChild(img);
     });
-  } else {
-    const paragraph = document.createElement('p');
-    paragraph.textContent = 'Сегодня без фотографий :(';
-    block.appendChild(paragraph);
   }
 };
 
@@ -69,7 +65,7 @@ const renderCard = ({
   cardElement.querySelector('.popup__text--address').textContent = address;
   cardElement.querySelector('.popup__text--price').textContent = `${price} ₽/ночь`;
   cardElement.querySelector('.popup__type').textContent = signaturesTypes[type];
-  cardElement.querySelector('.popup__text--capacity').textContent = rooms + sklonenie(rooms, [' комната для ', ' комнаты для ', ' комнат для ']) + guests + sklonenie(guests, [' гостя', ' гостей', ' гостей']);
+  cardElement.querySelector('.popup__text--capacity').textContent = rooms + getEndings(rooms, [' комната для ', ' комнаты для ', ' комнат для ']) + guests + getEndings(guests, [' гостя', ' гостей', ' гостей']);
   cardElement.querySelector('.popup__text--time').textContent = `Заезд после ${checkin}, выезд до ${checkout}`;
   cardElement.querySelector('.popup__description').textContent = description;
   cardElement.querySelector('.popup__avatar').src = author.avatar;
