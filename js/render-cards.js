@@ -39,9 +39,9 @@ const fillPhotos = (photos, block) => {
       block.appendChild(img);
     })
   } else {
-    const p = document.createElement('p');
-    p.textContent = 'Сегодня без фотографий :('
-    block.appendChild(p);
+    const p = document.createElement('paragraph');
+    paragraph.textContent = 'Сегодня без фотографий :('
+    block.appendChild(paragraph);
   };
 };
 
