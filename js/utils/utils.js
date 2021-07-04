@@ -37,29 +37,12 @@ const createRandomArray = (arr) => {
   return arr.slice(minIndex, maxIndex);
 };
 
-const createCapacity = (rooms, guests) => {
-  let signaRooms = ' комнат для ';
-  let signaGuests = ' гостей';
-  if (rooms === 1) {
-    signaRooms = ' комната для ';
-  } if (rooms < 5) {
-    signaRooms = ' комнаты для ';
-  }
-
-  if (guests === 1) {
-    signaGuests = ' гостя';
-  }
-
-  rooms + signaRooms + guests + signaGuests;
-
-  return rooms + signaRooms + guests + signaGuests;
-};
-
+const sklonenie = (number, txt, cases = [2, 0, 1, 1, 1, 2]) => txt[(number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5]];
 
 export {
   getRandomFromRange,
   getRandomFloatFromRange,
   createRandomElement,
   createRandomArray,
-  createCapacity
+  sklonenie
 };

@@ -66,6 +66,4 @@ const createAdvert = (index) => {
 const createSimilarAdverts = (count) => new Array(count).fill(null).map((item, index) => createAdvert(index));
 const data = createSimilarAdverts(NUMBER_REQUIRED_ELEMENS);
 
-export {
-  data
-};
+export {data};
