@@ -37,12 +37,12 @@ const fillPhotos = (photos, block) => {
       img.alt = 'Фотография жилья';
       img.src = photo;
       block.appendChild(img);
-    })
+    });
   } else {
-    const p = document.createElement('paragraph');
-    paragraph.textContent = 'Сегодня без фотографий :('
+    const paragraph = document.createElement('p');
+    paragraph.textContent = 'Сегодня без фотографий :(';
     block.appendChild(paragraph);
-  };
+  }
 };
 
 
@@ -61,7 +61,7 @@ const renderCard = ({
     checkout,
     description,
     features,
-    photos
+    photos,
   } = offer;
 
   const cardElement = cardTemplate.cloneNode(true);
