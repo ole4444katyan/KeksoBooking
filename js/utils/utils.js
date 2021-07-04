@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+//Утилитарные функции
 
 const getRandomFromRange = (min, max) => {
   if (min < 0 || min > max) {
@@ -26,7 +26,7 @@ const createRandomElement = (arr) => arr[getRandomFromRange(0, (arr.length - 1))
 
 const createRandomArray = (arr) => {
   let minIndex = getRandomFromRange(0, (arr.length - 1));
-  let maxIndex = getRandomFromRange(1, (arr.length - 1));
+  let maxIndex = getRandomFromRange(1, (arr.length));
 
   if (minIndex === maxIndex) {
     maxIndex--;
@@ -37,9 +37,12 @@ const createRandomArray = (arr) => {
   return arr.slice(minIndex, maxIndex);
 };
 
+const getEndings = (number, txt, cases = [2, 0, 1, 1, 1, 2]) => txt[(number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5]];
+
 export {
   getRandomFromRange,
   getRandomFloatFromRange,
   createRandomElement,
-  createRandomArray
+  createRandomArray,
+  getEndings
 };
