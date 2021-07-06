@@ -1,9 +1,7 @@
 //Генерация разметки объявлений
 
-import { data } from './generate-data.js';
 import { getEndings } from './utils/utils.js';
 
-const map = document.querySelector('#map-canvas');
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
 
 const signaturesTypes = {
@@ -81,6 +79,6 @@ const renderCard = ({
   return cardElement;
 };
 
-const card = renderCard(data[0]);
 
-map.appendChild(card);
+export { renderCard };
+
