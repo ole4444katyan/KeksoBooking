@@ -21,7 +21,7 @@ const CHECKINS = ['12:00', '13:00', '14:00'];
 const CHECKOUTS = ['12:00', '13:00', '14:00'];
 
 const MIN_PRICE = 1;
-const MAX_PRICE = 50000;
+const MAX_PRICE =  1000000;
 const MIN_ROOMS = 1;
 const MAX_ROOMS = 10;
 const MIN_GUESTS = 1;
