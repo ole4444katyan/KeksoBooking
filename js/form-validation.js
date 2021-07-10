@@ -3,62 +3,61 @@
 
 const roomSelector = document.querySelector('#room_number');
 const guestsSelector = document.querySelector('#capacity');
-
-const roomOptions = roomSelector.querySelectorAll('option');
 const guestsOptions = guestsSelector.querySelectorAll('option');
 
+const typeSelect = document.querySelector('#type');
+const priceInput = document.querySelector('#price');
 
-guestsOptions[1].selected = false;
-guestsOptions[2].selected = true;
+const availableRoomGuest = {
+  1: [1],
+  2: [1, 2],
+  3: [1, 2, 3],
+  100: [0],
+};
 
-
-const disabledOption = (targetSelector, changingOptions, imposterValue) => {
-
-  changingOptions.forEach((option) => {
-    option.disabled = false;
-  });
-
-  if (targetSelector.value === '1') {
-
-    changingOptions.forEach((option) => {
-
-      if (!(option.value === '1')) {
-        option.disabled = true;
-      }
-    });
-
-  } if (targetSelector.value === '2') {
-
-    changingOptions.forEach((option) => {
-
-      if (!(option.value === '1') && !(option.value === '2')) {
-        option.disabled = true;
-      }
-    });
-  } if (targetSelector.value === '3') {
-
-    changingOptions.forEach((option) => {
-
-      if (!(option.value === '1') && !(option.value === '2') && !(option.value === '3')) {
-        option.disabled = true;
-      }
-    });
-  } if (targetSelector.value === `${imposterValue}`) {
-
-    changingOptions.forEach((option) => {
-      option.disabled = true;
-      changingOptions[3].disabled = false;
-    });
-  }
-
+const typePrice = {
+  bungalow: 0,
+  flat: 1000,
+  hotel: 3000,
+  house: 5000,
+  palace: 10000,
 };
 
 
-guestsSelector.addEventListener('input', () => {
-  disabledOption(guestsSelector, roomOptions, 0);
-});
+const onRoomSelectorChange = () => {
+  roomSelector.addEventListener('change', () => {
+    guestsOptions.forEach((option) => {
+      option.disabled = false;
+    });
 
-roomSelector.addEventListener('input', () => {
-  disabledOption(roomSelector, guestsOptions, 100);
-});
+    const value = roomSelector.value;
+    const availableGuests = availableRoomGuest[value];
 
+    guestsOptions.forEach((option) => {
+      const optionValue = parseInt(option.value, 10);
+
+      if (!availableGuests.includes(optionValue)) {
+
+        option.disabled = true;
+      }
+    });
+  });
+};
+
+
+const onTypeSelectChange = () => {
+  typeSelect.addEventListener('change', () => {
+
+    const type = typeSelect.value;
+    const availablePrice = typePrice[type];
+
+    priceInput.min = availablePrice;
+    priceInput.placeholder = `${availablePrice}`;
+
+  });
+};
+
+export {
+  onRoomSelectorChange,
+  onTypeSelectChange
+};
