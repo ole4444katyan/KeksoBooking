@@ -3,7 +3,9 @@ import {renderCard} from './render-card.js';
 import {stateTogglePage} from './page-states.js';
 import {
   onRoomSelectorChange,
-  onTypeSelectChange
+  onTypeSelectorChange,
+  onTimeInChange,
+  onTimeOutChange
 } from './form-validation.js';
 
 const map = document.querySelector('#map-canvas');
@@ -15,4 +17,7 @@ stateTogglePage(false);
 stateTogglePage(true);
 
 onRoomSelectorChange();
-onTypeSelectChange();
+onTypeSelectorChange();
+
+onTimeInChange();
+onTimeOutChange();

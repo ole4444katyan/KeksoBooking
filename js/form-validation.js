@@ -5,7 +5,7 @@ const roomSelector = document.querySelector('#room_number');
 const guestsSelector = document.querySelector('#capacity');
 const guestsOptions = guestsSelector.querySelectorAll('option');
 
-const typeSelect = document.querySelector('#type');
+const typeSelector = document.querySelector('#type');
 const priceInput = document.querySelector('#price');
 
 const availableRoomGuest = {
@@ -45,10 +45,10 @@ const onRoomSelectorChange = () => {
 };
 
 
-const onTypeSelectChange = () => {
-  typeSelect.addEventListener('change', () => {
+const onTypeSelectorChange = () => {
+  typeSelector.addEventListener('change', () => {
 
-    const type = typeSelect.value;
+    const type = typeSelector.value;
     const availablePrice = typePrice[type];
 
     priceInput.min = availablePrice;
@@ -57,7 +57,39 @@ const onTypeSelectChange = () => {
   });
 };
 
+
+const timeInSelector = document.querySelector('#timein');
+const timeInOptions = timeInSelector.querySelectorAll('option');
+
+const timeOutSelector = document.querySelector('#timeout');
+const timeOutOptions = timeOutSelector.querySelectorAll('option');
+
+const timeSelectorChanger = (selector, options) => {
+  selector.addEventListener('change', () => {
+    options.forEach((option) => {
+      option.selected = false;
+    });
+
+    options.forEach((option) => {
+      if (option.value === selector.value) {
+        option.selected = true;
+      }
+    });
+  });
+};
+
+const onTimeInChange = () => {
+  timeSelectorChanger(timeInSelector, timeOutOptions);
+};
+
+const onTimeOutChange = () => {
+  timeSelectorChanger(timeOutSelector, timeInOptions);
+};
+
+
 export {
   onRoomSelectorChange,
-  onTypeSelectChange
+  onTypeSelectorChange,
+  onTimeInChange,
+  onTimeOutChange
 };
