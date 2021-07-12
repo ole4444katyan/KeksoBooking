@@ -33,85 +33,79 @@ const typePrice = {
 
 
 const onTitleValidator = () => {
-  titleInput.addEventListener('input', () => {
-    const titleLength = titleInput.value.length;
-    if (titleLength < MIN_TITLE_LENGTH) {
-      titleInput.setCustomValidity(`Сделайте заголовок подлиннее, пожалуйста. Еще ${MIN_TITLE_LENGTH - titleLength} симв.`);
-    } else if (titleLength > MAX_TITLE_LENGTH) {
-      titleInput.setCustomValidity(`Удалите лишие ${titleLength - MAX_TITLE_LENGTH} симв.`);
-    } else if (titleInput.validity.valueMissing) {
-      titleInput.setCustomValidity('Напишите что-нибудь');
-    } else {
-      titleInput.setCustomValidity('');
-    }
 
-    titleInput.reportValidity();
-  });
+  const titleLength = titleInput.value.length;
+
+  if (titleLength < MIN_TITLE_LENGTH) {
+    titleInput.setCustomValidity(`Сделайте заголовок подлиннее, пожалуйста. Еще ${MIN_TITLE_LENGTH - titleLength} симв.`);
+  } else if (titleLength > MAX_TITLE_LENGTH) {
+    titleInput.setCustomValidity(`Удалите лишие ${titleLength - MAX_TITLE_LENGTH} симв.`);
+  }
+
+  if (titleInput.validity.valueMissing) {
+    titleInput.setCustomValidity('Напишите что-нибудь');
+  } else {
+    titleInput.setCustomValidity('');
+  }
+
+  titleInput.reportValidity();
 };
 
 const onTypeSelectChanger = () => {
-  typeSelect.addEventListener('change', () => {
 
-    const type = typeSelect.value;
-    const availablePrice = typePrice[type];
+  const type = typeSelect.value;
+  const availablePrice = typePrice[type];
 
-    priceInput.min = availablePrice;
-    priceInput.placeholder = `${availablePrice}`;
+  priceInput.min = availablePrice;
+  priceInput.placeholder = `${availablePrice}`;
 
-  });
 };
 
 const onPriceValidator = () => {
-  priceInput.addEventListener('input', () => {
-    const priceValue = priceInput.value;
-    const priceMin = priceInput.min;
+  const priceValue = priceInput.value;
+  const priceMin = priceInput.min;
 
-    if (parseInt(priceValue, 10) < parseInt(priceMin, 10)) {
-      priceInput.setCustomValidity(`Для этого жилья минимальная сумма ${priceMin}`);
-    } else if (titleInput.validity.valueMissing) {
-      priceInput.setCustomValidity('Укажите цену');
-    } else {
-      priceInput.setCustomValidity('');
-    }
+  if (parseInt(priceValue, 10) < parseInt(priceMin, 10)) {
+    priceInput.setCustomValidity(`Для этого жилья минимальная сумма ${priceMin}`);
+  } else if (priceInput.validity.valueMissing) {
+    priceInput.setCustomValidity('Укажите цену');
+  } else {
+    priceInput.setCustomValidity('');
+  }
 
-
-    priceInput.reportValidity();
-  });
+  priceInput.reportValidity();
 };
 
 const onRoomSelectChanger = () => {
-  roomSelect.addEventListener('change', () => {
-    guestsOptions.forEach((option) => {
-      option.disabled = false;
-    });
 
-    const value = roomSelect.value;
-    const availableGuests = availableRoomGuest[value];
+  guestsOptions.forEach((option) => {
+    option.disabled = false;
+  });
 
-    guestsOptions.forEach((option) => {
-      const optionValue = parseInt(option.value, 10);
+  const value = roomSelect.value;
+  const availableGuests = availableRoomGuest[value];
 
-      if (!availableGuests.includes(optionValue)) {
+  guestsOptions.forEach((option) => {
+    const optionValue = parseInt(option.value, 10);
 
-        option.disabled = true;
-      }
-    });
+    if (!availableGuests.includes(optionValue)) {
+
+      option.disabled = true;
+    }
   });
 };
 
 const ontimeSelectorChanger = (selectActive, selectPassive) => {
-  selectActive.addEventListener('change', () => {
-    selectPassive.value = selectActive.value;
-  });
+  selectPassive.value = selectActive.value;
 };
 
 const setFormListeners = () => {
-  onTitleValidator();
-  onPriceValidator();
-  onRoomSelectChanger();
-  onTypeSelectChanger();
-  ontimeSelectorChanger(timeInSelect, timeOutSelect);
-  ontimeSelectorChanger(timeOutSelect, timeInSelect);
+  titleInput.addEventListener('input', onTitleValidator);
+  typeSelect.addEventListener('change', onTypeSelectChanger);
+  priceInput.addEventListener('input', onPriceValidator);
+  roomSelect.addEventListener('change', onRoomSelectChanger);
+  timeInSelect.addEventListener('change', ontimeSelectorChanger(timeInSelect, timeOutSelect));
+  timeOutSelect.addEventListener('change', ontimeSelectorChanger(timeOutSelect, timeInSelect));
 };
 
 
