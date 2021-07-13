@@ -1,12 +1,20 @@
 //Валидация формы
 
+const MIN_TITLE_LENGTH = 30;
+const MAX_TITLE_LENGTH = 100;
 
-const roomSelector = document.querySelector('#room_number');
-const guestsSelector = document.querySelector('#capacity');
-const guestsOptions = guestsSelector.querySelectorAll('option');
+const titleInput = document.querySelector('#title');
 
 const typeSelect = document.querySelector('#type');
 const priceInput = document.querySelector('#price');
+
+const roomSelect = document.querySelector('#room_number');
+const guestsSelect = document.querySelector('#capacity');
+const guestsOptions = guestsSelect.querySelectorAll('option');
+
+const timeInSelect = document.querySelector('#timein');
+const timeOutSelect = document.querySelector('#timeout');
+
 
 const availableRoomGuest = {
   1: [1],
@@ -24,40 +32,81 @@ const typePrice = {
 };
 
 
-const onRoomSelectorChange = () => {
-  roomSelector.addEventListener('change', () => {
-    guestsOptions.forEach((option) => {
-      option.disabled = false;
-    });
+const onTitleValidator = () => {
 
-    const value = roomSelector.value;
-    const availableGuests = availableRoomGuest[value];
+  const titleLength = titleInput.value.length;
 
-    guestsOptions.forEach((option) => {
-      const optionValue = parseInt(option.value, 10);
+  if (titleLength < MIN_TITLE_LENGTH) {
+    titleInput.setCustomValidity(`Сделайте заголовок подлиннее, пожалуйста. Еще ${MIN_TITLE_LENGTH - titleLength} симв.`);
+  } else if (titleLength > MAX_TITLE_LENGTH) {
+    titleInput.setCustomValidity(`Удалите лишие ${titleLength - MAX_TITLE_LENGTH} симв.`);
+  }
 
-      if (!availableGuests.includes(optionValue)) {
+  if (titleInput.validity.valueMissing) {
+    titleInput.setCustomValidity('Напишите что-нибудь');
+  } else {
+    titleInput.setCustomValidity('');
+  }
 
-        option.disabled = true;
-      }
-    });
+  titleInput.reportValidity();
+};
+
+const onTypeSelectChanger = () => {
+
+  const type = typeSelect.value;
+  const availablePrice = typePrice[type];
+
+  priceInput.min = availablePrice;
+  priceInput.placeholder = `${availablePrice}`;
+
+};
+
+const onPriceValidator = () => {
+  const priceValue = priceInput.value;
+  const priceMin = priceInput.min;
+
+  if (parseInt(priceValue, 10) < parseInt(priceMin, 10)) {
+    priceInput.setCustomValidity(`Для этого жилья минимальная сумма ${priceMin}`);
+  } else if (priceInput.validity.valueMissing) {
+    priceInput.setCustomValidity('Укажите цену');
+  } else {
+    priceInput.setCustomValidity('');
+  }
+
+  priceInput.reportValidity();
+};
+
+const onRoomSelectChanger = () => {
+
+  guestsOptions.forEach((option) => {
+    option.disabled = false;
+  });
+
+  const value = roomSelect.value;
+  const availableGuests = availableRoomGuest[value];
+
+  guestsOptions.forEach((option) => {
+    const optionValue = parseInt(option.value, 10);
+
+    if (!availableGuests.includes(optionValue)) {
+
+      option.disabled = true;
+    }
   });
 };
 
-
-const onTypeSelectChange = () => {
-  typeSelect.addEventListener('change', () => {
-
-    const type = typeSelect.value;
-    const availablePrice = typePrice[type];
-
-    priceInput.min = availablePrice;
-    priceInput.placeholder = `${availablePrice}`;
-
-  });
+const ontimeSelectorChanger = (selectActive, selectPassive) => {
+  selectPassive.value = selectActive.value;
 };
 
-export {
-  onRoomSelectorChange,
-  onTypeSelectChange
+const setFormListeners = () => {
+  titleInput.addEventListener('input', onTitleValidator);
+  typeSelect.addEventListener('change', onTypeSelectChanger);
+  priceInput.addEventListener('input', onPriceValidator);
+  roomSelect.addEventListener('change', onRoomSelectChanger);
+  timeInSelect.addEventListener('change', ontimeSelectorChanger(timeInSelect, timeOutSelect));
+  timeOutSelect.addEventListener('change', ontimeSelectorChanger(timeOutSelect, timeInSelect));
 };
+
+
+export { setFormListeners };

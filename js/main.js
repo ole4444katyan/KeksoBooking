@@ -1,10 +1,7 @@
-import {data} from './generate-data.js';
-import {renderCard} from './render-card.js';
-import {stateTogglePage} from './page-states.js';
-import {
-  onRoomSelectorChange,
-  onTypeSelectChange
-} from './form-validation.js';
+import { data } from './generate-data.js';
+import { renderCard } from './render-card.js';
+import { stateTogglePage } from './page-states.js';
+import { setFormListeners } from './form-validation.js';
 
 const map = document.querySelector('#map-canvas');
 
@@ -14,5 +11,4 @@ map.appendChild(card);
 stateTogglePage(false);
 stateTogglePage(true);
 
-onRoomSelectorChange();
-onTypeSelectChange();
+setFormListeners();
