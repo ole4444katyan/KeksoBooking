@@ -1,20 +1,17 @@
-// import { data } from './generate-data.js';
-// import { renderCard } from './render-card.js';
 import { stateTogglePage } from './page-states.js';
 import { setFormListeners } from './form-validation.js';
-import { mapFunctions } from './map.js';
-import { createSimilatMarker } from './other-items.js';
+import {
+  initMap,
+  createMarkers,
+  resetMap
+} from './map.js';
 
+const resetButton = document.querySelector('.ad-form__reset');
 
 stateTogglePage(false);
 
-mapFunctions();
-
-createSimilatMarker();
-
-
-// const card = renderCard(data[0]);
-// map.appendChild(card);
-
+initMap();
+createMarkers();
+resetMap(resetButton);
 
 setFormListeners();
