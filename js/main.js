@@ -1,14 +1,17 @@
-import { data } from './generate-data.js';
-import { renderCard } from './render-card.js';
 import { stateTogglePage } from './page-states.js';
 import { setFormListeners } from './form-validation.js';
+import {
+  initMap,
+  createMarkers,
+  resetMap
+} from './map.js';
 
-const map = document.querySelector('#map-canvas');
-
-const card = renderCard(data[0]);
-map.appendChild(card);
+const resetButton = document.querySelector('.ad-form__reset');
 
 stateTogglePage(false);
-stateTogglePage(true);
+
+initMap();
+createMarkers();
+resetMap(resetButton);
 
 setFormListeners();

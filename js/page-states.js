@@ -13,11 +13,7 @@ const stateToggleElement = (element, items, state) => {
   element.classList.toggle('ad-form--disabled');
 
   items.forEach((item) => {
-    if(item.disabled === true) {
-      item.disabled = false;
-    } else {
-      item.disabled = true;
-    }
+    item.disabled = item.disabled !== true;
   });
 };
 
