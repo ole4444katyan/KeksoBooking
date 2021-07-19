@@ -1,17 +1,12 @@
 import { stateTogglePage } from './page-states.js';
 import { setFormListeners } from './form-validation.js';
-import {
-  initMap,
-  createMarkers,
-  resetMap
-} from './map.js';
+import { initMap } from './map.js';
+import { sendDataListener } from './user-form.js';
 
-const resetButton = document.querySelector('.ad-form__reset');
 
 stateTogglePage(false);
-
 initMap();
-createMarkers();
-resetMap(resetButton);
-
 setFormListeners();
+
+
+sendDataListener();

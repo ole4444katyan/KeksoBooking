@@ -3,6 +3,8 @@
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 
+const form = document.querySelector('.ad-form');
+
 const titleInput = document.querySelector('#title');
 
 const typeSelect = document.querySelector('#type');
@@ -108,5 +110,11 @@ const setFormListeners = () => {
   timeOutSelect.addEventListener('change', ontimeSelectorChanger(timeOutSelect, timeInSelect));
 };
 
+const resetForm = () => {
+  form.reset();
+};
 
-export { setFormListeners };
+export {
+  setFormListeners,
+  resetForm
+};
