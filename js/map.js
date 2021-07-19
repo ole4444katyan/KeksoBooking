@@ -2,6 +2,7 @@
 
 import { stateTogglePage } from './page-states.js';
 import { renderCard } from './render-card.js';
+import { getData } from './api.js';
 
 const TILE_LAYER = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 const COPYRIGHT_ATTRIBUTE = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
@@ -14,6 +15,9 @@ const ZOOM_DEFAULT = 10;
 
 const MAIN_MARKER_SIZE = 52;
 const MARKER_SIZE = 40;
+
+const CURRENT_COUNT_OF_ADVERTS = 10;
+const ALERT_SHOW_TIME = 5000;
 
 const addressInput = document.querySelector('#address');
 
@@ -51,24 +55,6 @@ const createMainMarker = () => {
 
 };
 
-const initMap = () => {
-  map
-    .on('load', () => {
-      stateTogglePage(true);
-    })
-    .setView(LAT_LNG_DEFAULT, ZOOM_DEFAULT);
-
-
-  L.tileLayer(TILE_LAYER,
-    {
-      attribution: COPYRIGHT_ATTRIBUTE,
-    },
-  ).addTo(map);
-
-  createMainMarker();
-};
-
-
 const markerGroup = L.layerGroup().addTo(map);
 
 const createMarker = (offer, group) => {
@@ -104,6 +90,48 @@ const createMarkers = (data) => {
     createMarker(item, markerGroup);
   });
 };
+
+const onLoadSuccess = (adverts) => {
+  createMarkers(adverts.slice(0, CURRENT_COUNT_OF_ADVERTS));
+};
+
+const onLoadError = () => {
+  const alertContainer = document.createElement('div');
+  alertContainer.style.zIndex = 100;
+  alertContainer.style.position = 'absolute';
+  alertContainer.style.left = 0;
+  alertContainer.style.top = 0;
+  alertContainer.style.right = 0;
+  alertContainer.style.padding = '10px 3px';
+  alertContainer.style.fontSize = '30px';
+  alertContainer.style.textAlign = 'center';
+  alertContainer.style.backgroundColor = 'red';
+  alertContainer.textContent = 'Ошибка сервера, попробуйте перезагрузить страницу';
+  document.body.append(alertContainer);
+
+  setTimeout(() => {
+    alertContainer.remove();
+  }, ALERT_SHOW_TIME);
+};
+
+const initMap = () => {
+  map
+    .on('load', () => {
+      stateTogglePage(true);
+      getData(onLoadSuccess, onLoadError);
+    })
+    .setView(LAT_LNG_DEFAULT, ZOOM_DEFAULT);
+
+
+  L.tileLayer(TILE_LAYER,
+    {
+      attribution: COPYRIGHT_ATTRIBUTE,
+    },
+  ).addTo(map);
+
+  createMainMarker();
+};
+
 
 const resetMap = () => {
   map.setView(LAT_LNG_DEFAULT, ZOOM_DEFAULT);
