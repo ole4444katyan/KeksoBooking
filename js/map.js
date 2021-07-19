@@ -1,7 +1,6 @@
 //Карта
 
 import { stateTogglePage } from './page-states.js';
-import { data } from './generate-data.js';
 import { renderCard } from './render-card.js';
 
 const TILE_LAYER = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
@@ -18,7 +17,10 @@ const MARKER_SIZE = 40;
 
 const addressInput = document.querySelector('#address');
 
-addressInput.value = `${LAT_LNG_DEFAULT.lat}, ${LAT_LNG_DEFAULT.lng}`;
+const addressInputDefault = () => {
+  addressInput.value = `${LAT_LNG_DEFAULT.lat}, ${LAT_LNG_DEFAULT.lng}`;
+};
+addressInputDefault();
 
 const map = L.map('map-canvas');
 let mainMarker;
@@ -97,18 +99,16 @@ const createMarker = (offer, group) => {
   marker.addTo(group);
 };
 
-const createMarkers = () => {
+const createMarkers = (data) => {
   data.forEach((item) => {
     createMarker(item, markerGroup);
   });
 };
 
-const resetMap = (resetButton) => {
-  resetButton.addEventListener('click', () => {
-    map.setView(LAT_LNG_DEFAULT, ZOOM_DEFAULT);
-    mainMarker.setLatLng(LAT_LNG_DEFAULT);
-
-  });
+const resetMap = () => {
+  map.setView(LAT_LNG_DEFAULT, ZOOM_DEFAULT);
+  mainMarker.setLatLng(LAT_LNG_DEFAULT);
+  addressInputDefault();
 };
 
 
