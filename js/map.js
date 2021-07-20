@@ -3,6 +3,7 @@
 import { stateTogglePage } from './page-states.js';
 import { renderCard } from './render-card.js';
 import { getData } from './api.js';
+import {filterHandler} from './filter.js';
 
 const TILE_LAYER = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 const COPYRIGHT_ATTRIBUTE = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
@@ -29,6 +30,7 @@ addressInputDefault();
 const map = L.map('map-canvas');
 let mainMarker;
 
+const markerGroup = L.layerGroup().addTo(map);
 
 const createMainMarker = () => {
 
@@ -54,8 +56,6 @@ const createMainMarker = () => {
   });
 
 };
-
-const markerGroup = L.layerGroup().addTo(map);
 
 const createMarker = (offer, group) => {
   const {
@@ -91,8 +91,14 @@ const createMarkers = (data) => {
   });
 };
 
+const removeMarkers = () => {
+  markerGroup.clearLayers();
+};
+
 const onLoadSuccess = (adverts) => {
-  createMarkers(adverts.slice(0, CURRENT_COUNT_OF_ADVERTS));
+  const currentAdverts = adverts.slice(0, CURRENT_COUNT_OF_ADVERTS);
+  createMarkers(currentAdverts);
+  filterHandler(currentAdverts);
 };
 
 const onLoadError = () => {
@@ -143,6 +149,7 @@ const resetMap = () => {
 export {
   initMap,
   createMarkers,
-  resetMap
+  resetMap,
+  removeMarkers
 };
 
