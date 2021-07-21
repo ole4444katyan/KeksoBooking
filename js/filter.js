@@ -3,6 +3,9 @@ import {
   createMarkers
 } from './map.js';
 
+const MIN_ADVERTS = 0;
+const MAX_ADVERTS = 10;
+
 const filterForm = document.querySelector('.map__filters');
 const houseType = filterForm.querySelector('#housing-type');
 const housePrice = filterForm.querySelector('#housing-price');
@@ -10,11 +13,25 @@ const houseRooms = filterForm.querySelector('#housing-rooms');
 const houseGuests = filterForm.querySelector('#housing-guests');
 const houseFeatures = filterForm.querySelector('#housing-features');
 
-const priceMap = (value) => {
-  if (value <= 10000) { return 'low'; } else
-  if (value >= 10000 && value <= 50000) { return 'middle'; } else
-  if (value >= 50000) { return 'high'; }
+const priceMap = {
+  low: {
+    min: 0,
+    max: 10000,
+  },
+  middle: {
+    min: 10000,
+    max: 50000,
+  },
+  high: {
+    min: 50000,
+    max: Infinity,
+  },
+  any: {
+    min: 0,
+    max: Infinity,
+  },
 };
+
 
 const filterByType = ({ offer }) => {
   if (houseType.value === 'any' || offer.type === houseType.value) {
@@ -24,21 +41,21 @@ const filterByType = ({ offer }) => {
 };
 
 const filterByPrice = ({ offer }) => {
-  if (housePrice.value === 'any' || priceMap(offer.price) === housePrice.value) {
+  if (housePrice.value === 'any' || (offer.price >= priceMap[housePrice.value].min && offer.price <= priceMap[housePrice.value].max)) {
     return true;
   }
   return false;
 };
 
 const filterByRooms = ({ offer }) => {
-  if (houseRooms.value === 'any' || `${offer.rooms}` === houseRooms.value) {
+  if (houseRooms.value === 'any' || offer.rooms === Number(houseRooms.value)) {
     return true;
   }
   return false;
 };
 
 const filterByGuests = ({ offer }) => {
-  if (houseGuests.value === 'any' || `${offer.guests}` === houseGuests.value) {
+  if (houseGuests.value === 'any' || offer.guests === Number(houseGuests.value)) {
     return true;
   }
   return false;
@@ -46,32 +63,27 @@ const filterByGuests = ({ offer }) => {
 
 const filterByFeatures = ({ offer }) => {
   const features = offer.features;
-  const inputsCollection = houseFeatures.querySelectorAll('input');
-  const inputs = Array.from(inputsCollection);
-  const inputsValues = [];
-  let result;
 
-  inputs.forEach((input) => {
-    if (input.checked) {
-      inputsValues.push(input.value);
-    }
-  });
+  const inputsCollection = houseFeatures.querySelectorAll('input:checked');
 
   if (features) {
-    result = inputsValues.every((value) => features.includes(value));
+    const result = Array.from(inputsCollection).every((checkbox) => features.includes(checkbox.value));
+
+    return result;
   }
-  return result;
+
 };
 
-const filterOffers = (offers) => {
-  const result = offers.filter((offer) =>
-    filterByType(offer)
-    && filterByPrice(offer)
-    && filterByRooms(offer)
-    && filterByGuests(offer)
-    && filterByFeatures(offer)).slice(0, 10);
-  return result;
-};
+const filterOffers = (offers) => (
+  offers
+    .filter((offer) =>
+      filterByType(offer)
+      && filterByPrice(offer)
+      && filterByRooms(offer)
+      && filterByGuests(offer)
+      && filterByFeatures(offer))
+    .slice(MIN_ADVERTS, MAX_ADVERTS)
+);
 
 const updateOffers = (offers) => {
   clearLayers();
