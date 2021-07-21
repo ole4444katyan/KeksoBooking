@@ -2,6 +2,7 @@ import {
   clearLayers,
   createMarkers
 } from './map.js';
+import {debounce} from './utils/debounce.js';
 
 const MIN_ADVERTS = 0;
 const MAX_ADVERTS = 10;
@@ -93,7 +94,7 @@ const updateOffers = (offers) => {
 
 
 const filterListener = (offers) => {
-  filterForm.addEventListener('change', () => updateOffers(offers));
+  filterForm.addEventListener('change', debounce(() => updateOffers(offers)));
 };
 
 
