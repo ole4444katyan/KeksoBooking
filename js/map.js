@@ -3,7 +3,7 @@
 import { stateTogglePage } from './page-states.js';
 import { renderCard } from './render-card.js';
 import { getData } from './api.js';
-import {filterHandler} from './filter.js';
+import { filterListener } from './filter.js';
 
 const TILE_LAYER = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 const COPYRIGHT_ATTRIBUTE = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
@@ -18,7 +18,6 @@ const MAIN_MARKER_SIZE = 52;
 const MARKER_SIZE = 40;
 
 const CURRENT_COUNT_OF_ADVERTS = 10;
-const ALERT_SHOW_TIME = 5000;
 
 const addressInput = document.querySelector('#address');
 
@@ -91,14 +90,14 @@ const createMarkers = (data) => {
   });
 };
 
-const removeMarkers = () => {
+const clearLayers = () => {
   markerGroup.clearLayers();
 };
 
 const onLoadSuccess = (adverts) => {
   const currentAdverts = adverts.slice(0, CURRENT_COUNT_OF_ADVERTS);
   createMarkers(currentAdverts);
-  filterHandler(currentAdverts);
+  filterListener(adverts);
 };
 
 const onLoadError = () => {
@@ -114,10 +113,6 @@ const onLoadError = () => {
   alertContainer.style.backgroundColor = 'red';
   alertContainer.textContent = 'Ошибка сервера, попробуйте перезагрузить страницу';
   document.body.append(alertContainer);
-
-  setTimeout(() => {
-    alertContainer.remove();
-  }, ALERT_SHOW_TIME);
 };
 
 const initMap = () => {
@@ -150,6 +145,6 @@ export {
   initMap,
   createMarkers,
   resetMap,
-  removeMarkers
+  clearLayers
 };
 
