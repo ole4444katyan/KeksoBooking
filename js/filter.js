@@ -12,8 +12,8 @@ const houseFeatures = filterForm.querySelector('#housing-features');
 
 const priceMap = (value) => {
   if (value <= 10000) { return 'low'; } else
-    if (value >= 10000 && value <= 50000) { return 'middle'; } else
-      if (value >= 50000) { return 'high'; }
+  if (value >= 10000 && value <= 50000) { return 'middle'; } else
+  if (value >= 50000) { return 'high'; }
 };
 
 const filterByType = ({ offer }) => {
@@ -57,14 +57,10 @@ const filterByFeatures = ({ offer }) => {
     }
   });
 
-  console.log(features, inputsValues);
   if (features) {
-    result = inputsValues.every((value) => {
-      features.includes(value);
-      console.log(features.includes(value));
-    });
+    result = inputsValues.every((value) => features.includes(value));
   }
-  console.log(result);
+  return result;
 };
 
 const filterOffers = (offers) => {
