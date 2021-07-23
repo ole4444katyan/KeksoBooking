@@ -13,19 +13,22 @@ const signaturesTypes = {
 };
 
 const fillFeatures = (features, block) => {
-  const classes = features.map((feature) => `popup__feature--${feature}`);
+  if (features) {
+    const classes = features.map((feature) => `popup__feature--${feature}`);
 
-  classes.forEach((feature) => {
-    const item = document.createElement('li');
-    item.classList.add('popup__feature');
-    item.classList.add((feature));
-    block.appendChild(item);
-  });
+    classes.forEach((feature) => {
+      const item = document.createElement('li');
+      item.classList.add('popup__feature');
+      item.classList.add((feature));
+      block.appendChild(item);
+    });
+  }
+
 };
 
 const fillPhotos = (photos, block) => {
 
-  if (photos.length > 0) {
+  if (photos) {
 
     photos.forEach((photo) => {
       const img = document.createElement('img');
