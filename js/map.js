@@ -1,8 +1,9 @@
 //Карта
 
 import { stateTogglePage } from './page-states.js';
-import { data } from './generate-data.js';
 import { renderCard } from './render-card.js';
+import { getData } from './api.js';
+import { filterListener } from './filter.js';
 
 const TILE_LAYER = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 const COPYRIGHT_ATTRIBUTE = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
@@ -16,13 +17,19 @@ const ZOOM_DEFAULT = 10;
 const MAIN_MARKER_SIZE = 52;
 const MARKER_SIZE = 40;
 
+const CURRENT_COUNT_OF_ADVERTS = 10;
+
 const addressInput = document.querySelector('#address');
 
-addressInput.value = `${LAT_LNG_DEFAULT.lat}, ${LAT_LNG_DEFAULT.lng}`;
+const addressInputDefault = () => {
+  addressInput.value = `${LAT_LNG_DEFAULT.lat}, ${LAT_LNG_DEFAULT.lng}`;
+};
+addressInputDefault();
 
 const map = L.map('map-canvas');
 let mainMarker;
 
+const markerGroup = L.layerGroup().addTo(map);
 
 const createMainMarker = () => {
 
@@ -48,26 +55,6 @@ const createMainMarker = () => {
   });
 
 };
-
-const initMap = () => {
-  map
-    .on('load', () => {
-      stateTogglePage(true);
-    })
-    .setView(LAT_LNG_DEFAULT, ZOOM_DEFAULT);
-
-
-  L.tileLayer(TILE_LAYER,
-    {
-      attribution: COPYRIGHT_ATTRIBUTE,
-    },
-  ).addTo(map);
-
-  createMainMarker();
-};
-
-
-const markerGroup = L.layerGroup().addTo(map);
 
 const createMarker = (offer, group) => {
   const {
@@ -97,20 +84,22 @@ const createMarker = (offer, group) => {
   marker.addTo(group);
 };
 
-const createMarkers = () => {
+const createMarkers = (data) => {
   data.forEach((item) => {
     createMarker(item, markerGroup);
   });
 };
 
-const resetMap = (resetButton) => {
-  resetButton.addEventListener('click', () => {
-    map.setView(LAT_LNG_DEFAULT, ZOOM_DEFAULT);
-    mainMarker.setLatLng(LAT_LNG_DEFAULT);
+const clearLayers = () => {
+  markerGroup.clearLayers();
+};
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   });
 =======
+=======
+>>>>>>> d5e0bf1fa1b88bf6455c81c345a6a5f1d37544bb
 const onLoadSuccess = (adverts) => {
   const currentAdverts = adverts.slice(0, CURRENT_COUNT_OF_ADVERTS);
   createMarkers(currentAdverts);
@@ -155,14 +144,18 @@ const resetMap = () => {
   map.setView(LAT_LNG_DEFAULT, ZOOM_DEFAULT);
   mainMarker.setLatLng(LAT_LNG_DEFAULT);
   addressInputDefault();
+<<<<<<< HEAD
   getData(onLoadSuccess, onLoadError);
 >>>>>>> d127213 (Пофиксила очистку)
+=======
+>>>>>>> d5e0bf1fa1b88bf6455c81c345a6a5f1d37544bb
 };
 
 
 export {
   initMap,
   createMarkers,
-  resetMap
+  resetMap,
+  clearLayers
 };
 

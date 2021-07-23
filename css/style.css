@@ -575,6 +575,7 @@ fieldset {
 .ad-form__photo {
   margin-right: 10px;
   margin-bottom: 10px;
+  padding: 12px 15px;
 
   width: 70px;
   height: 70px;
