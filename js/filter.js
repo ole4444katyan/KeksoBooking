@@ -2,11 +2,7 @@ import {
   clearLayers,
   createMarkers
 } from './map.js';
-<<<<<<< HEAD
 import { debounce } from './utils/debounce.js';
-=======
-import {debounce} from './utils/debounce.js';
->>>>>>> d5e0bf1fa1b88bf6455c81c345a6a5f1d37544bb
 
 const MIN_ADVERTS = 0;
 const MAX_ADVERTS = 10;
@@ -81,7 +77,6 @@ const filterListener = (offers) => {
   filterForm.addEventListener('change', debounce(() => updateOffers(offers)));
 };
 
-<<<<<<< HEAD
 const resetFilters = () => {
   filterForm.reset();
 };
@@ -90,7 +85,3 @@ export {
   filterListener,
   resetFilters
 };
-=======
-
-export { filterListener };
->>>>>>> d5e0bf1fa1b88bf6455c81c345a6a5f1d37544bb

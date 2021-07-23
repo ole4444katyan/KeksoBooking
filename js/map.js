@@ -94,12 +94,7 @@ const clearLayers = () => {
   markerGroup.clearLayers();
 };
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-  });
-=======
-=======
->>>>>>> d5e0bf1fa1b88bf6455c81c345a6a5f1d37544bb
+
 const onLoadSuccess = (adverts) => {
   const currentAdverts = adverts.slice(0, CURRENT_COUNT_OF_ADVERTS);
   createMarkers(currentAdverts);
@@ -144,11 +139,7 @@ const resetMap = () => {
   map.setView(LAT_LNG_DEFAULT, ZOOM_DEFAULT);
   mainMarker.setLatLng(LAT_LNG_DEFAULT);
   addressInputDefault();
-<<<<<<< HEAD
   getData(onLoadSuccess, onLoadError);
->>>>>>> d127213 (Пофиксила очистку)
-=======
->>>>>>> d5e0bf1fa1b88bf6455c81c345a6a5f1d37544bb
 };
 
 
