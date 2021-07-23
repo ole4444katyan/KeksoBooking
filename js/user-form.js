@@ -12,14 +12,21 @@ const form = document.querySelector('.ad-form');
 
 const showSuccessMessage = () => {
   const successElement = successMessage.cloneNode(true);
-  body.addEventListener('keydown', (evt) => {
+
+  const removeMessage = () => {
+    successElement.remove();
+    body.removeEventListener('click', removeMessage);
+  };
+
+  const removeMessageOnKeydown = (evt) => {
     if (evt.key === 'Escape') {
       successElement.remove();
     }
-  });
-  body.addEventListener('click', () => {
-    successElement.remove();
-  });
+    body.removeEventListener('keydown', removeMessageOnKeydown);
+  };
+
+  body.addEventListener('keydown', removeMessageOnKeydown);
+  body.addEventListener('click', removeMessage);
   body.appendChild(successElement);
 };
 

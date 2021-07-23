@@ -3,6 +3,9 @@
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+const IMAGE_SRC = 'img/muffin-grey.svg';
+
 const form = document.querySelector('.ad-form');
 
 const titleInput = document.querySelector('#title');
@@ -16,6 +19,12 @@ const guestsOptions = guestsSelect.querySelectorAll('option');
 
 const timeInSelect = document.querySelector('#timein');
 const timeOutSelect = document.querySelector('#timeout');
+
+const avatarInput = document.querySelector('#avatar');
+const avatarImage = document.querySelector('.ad-form-header__preview img');
+
+const photoInput = document.querySelector('#images');
+const photoImage = document.querySelector('.ad-form__photo img');
 
 
 const availableRoomGuest = {
@@ -34,7 +43,7 @@ const typePrice = {
 };
 
 
-const onTitleValidator = () => {
+const validateTitleInput = () => {
 
   const titleLength = titleInput.value.length;
 
@@ -53,7 +62,7 @@ const onTitleValidator = () => {
   titleInput.reportValidity();
 };
 
-const onTypeSelectChanger = () => {
+const changeTypeSelector = () => {
 
   const type = typeSelect.value;
   const availablePrice = typePrice[type];
@@ -63,7 +72,7 @@ const onTypeSelectChanger = () => {
 
 };
 
-const onPriceValidator = () => {
+const validatePriceInput = () => {
   const priceValue = priceInput.value;
   const priceMin = priceInput.min;
 
@@ -78,7 +87,7 @@ const onPriceValidator = () => {
   priceInput.reportValidity();
 };
 
-const onRoomSelectChanger = () => {
+const changeRoomSelector = () => {
 
   guestsOptions.forEach((option) => {
     option.disabled = false;
@@ -97,21 +106,43 @@ const onRoomSelectChanger = () => {
   });
 };
 
-const ontimeSelectorChanger = (selectActive, selectPassive) => {
+const changeTimeSelector = (selectActive, selectPassive) => {
   selectPassive.value = selectActive.value;
 };
 
+const makePreview = (input, img) => {
+  const file = input.files[0];
+  const fileName = file.name.toLowerCase();
+
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+
+  if (matches) {
+    const reader = new FileReader();
+
+    reader.addEventListener('load', () => {
+      img.src = reader.result;
+    });
+
+    reader.readAsDataURL(file);
+  }
+};
+
+
 const setFormListeners = () => {
-  titleInput.addEventListener('input', onTitleValidator);
-  typeSelect.addEventListener('change', onTypeSelectChanger);
-  priceInput.addEventListener('input', onPriceValidator);
-  roomSelect.addEventListener('change', onRoomSelectChanger);
-  timeInSelect.addEventListener('change', ontimeSelectorChanger(timeInSelect, timeOutSelect));
-  timeOutSelect.addEventListener('change', ontimeSelectorChanger(timeOutSelect, timeInSelect));
+  titleInput.addEventListener('input', validateTitleInput);
+  typeSelect.addEventListener('change', changeTypeSelector);
+  priceInput.addEventListener('input', validatePriceInput);
+  roomSelect.addEventListener('change', changeRoomSelector);
+  timeInSelect.addEventListener('change', () => changeTimeSelector(timeInSelect, timeOutSelect));
+  timeOutSelect.addEventListener('change', () => changeTimeSelector(timeOutSelect, timeInSelect));
+  avatarInput.addEventListener('change', () => makePreview(avatarInput, avatarImage));
+  photoInput.addEventListener('change', () => makePreview(photoInput, photoImage));
 };
 
 const resetForm = () => {
   form.reset();
+  avatarImage.src = IMAGE_SRC;
+  photoImage.src = IMAGE_SRC;
 };
 
 export {

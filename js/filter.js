@@ -34,33 +34,13 @@ const priceMap = {
 };
 
 
-const filterByType = ({ offer }) => {
-  if (houseType.value === 'any' || offer.type === houseType.value) {
-    return true;
-  }
-  return false;
-};
+const filterByType = ({ offer }) => houseType.value === 'any' || offer.type === houseType.value;
 
-const filterByPrice = ({ offer }) => {
-  if (housePrice.value === 'any' || (offer.price >= priceMap[housePrice.value].min && offer.price <= priceMap[housePrice.value].max)) {
-    return true;
-  }
-  return false;
-};
+const filterByPrice = ({ offer }) => housePrice.value === 'any' || (offer.price >= priceMap[housePrice.value].min && offer.price <= priceMap[housePrice.value].max);
 
-const filterByRooms = ({ offer }) => {
-  if (houseRooms.value === 'any' || offer.rooms === Number(houseRooms.value)) {
-    return true;
-  }
-  return false;
-};
+const filterByRooms = ({ offer }) => houseRooms.value === 'any' || offer.rooms === Number(houseRooms.value);
 
-const filterByGuests = ({ offer }) => {
-  if (houseGuests.value === 'any' || offer.guests === Number(houseGuests.value)) {
-    return true;
-  }
-  return false;
-};
+const filterByGuests = ({ offer }) => houseGuests.value === 'any' || offer.guests === Number(houseGuests.value);
 
 const filterByFeatures = ({ offer }) => {
   const features = offer.features;
