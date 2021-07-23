@@ -108,7 +108,55 @@ const resetMap = (resetButton) => {
     map.setView(LAT_LNG_DEFAULT, ZOOM_DEFAULT);
     mainMarker.setLatLng(LAT_LNG_DEFAULT);
 
+<<<<<<< HEAD
   });
+=======
+const onLoadSuccess = (adverts) => {
+  const currentAdverts = adverts.slice(0, CURRENT_COUNT_OF_ADVERTS);
+  createMarkers(currentAdverts);
+  filterListener(adverts);
+};
+
+const onLoadError = () => {
+  const alertContainer = document.createElement('div');
+  alertContainer.style.zIndex = 100;
+  alertContainer.style.position = 'absolute';
+  alertContainer.style.left = 0;
+  alertContainer.style.top = 0;
+  alertContainer.style.right = 0;
+  alertContainer.style.padding = '10px 3px';
+  alertContainer.style.fontSize = '30px';
+  alertContainer.style.textAlign = 'center';
+  alertContainer.style.backgroundColor = 'red';
+  alertContainer.textContent = 'Ошибка сервера, попробуйте перезагрузить страницу';
+  document.body.append(alertContainer);
+};
+
+const initMap = () => {
+  map
+    .on('load', () => {
+      stateTogglePage(true);
+      getData(onLoadSuccess, onLoadError);
+    })
+    .setView(LAT_LNG_DEFAULT, ZOOM_DEFAULT);
+
+
+  L.tileLayer(TILE_LAYER,
+    {
+      attribution: COPYRIGHT_ATTRIBUTE,
+    },
+  ).addTo(map);
+
+  createMainMarker();
+};
+
+
+const resetMap = () => {
+  map.setView(LAT_LNG_DEFAULT, ZOOM_DEFAULT);
+  mainMarker.setLatLng(LAT_LNG_DEFAULT);
+  addressInputDefault();
+  getData(onLoadSuccess, onLoadError);
+>>>>>>> d127213 (Пофиксила очистку)
 };
 
 
