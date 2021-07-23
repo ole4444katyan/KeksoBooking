@@ -139,6 +139,7 @@ const resetMap = () => {
   mainMarker.setLatLng(LAT_LNG_DEFAULT);
   addressInputDefault();
   getData(onLoadSuccess, onLoadError);
+
 };
 
 

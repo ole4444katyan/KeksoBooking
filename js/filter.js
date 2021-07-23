@@ -4,6 +4,7 @@ import {
 } from './map.js';
 import { debounce } from './utils/debounce.js';
 
+
 const MIN_ADVERTS = 0;
 const MAX_ADVERTS = 10;
 
@@ -85,3 +86,4 @@ export {
   filterListener,
   resetFilters
 };
+

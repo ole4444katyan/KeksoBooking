@@ -2,6 +2,7 @@ import { resetForm } from './form-validation.js';
 import { resetMap } from './map.js';
 import { resetFilters } from './filter.js';
 
+
 const reset = () => {
   resetForm();
   resetMap();
